@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Usando webSockets</title>
+    <script type="text/javascript">
+      var ws = new WebSocket("ws://localhost:5001");
+      ws.onopen = () => console.log("WebSocket abierto:", ws);
+      ws.onerror = (err) => console.error("WebSocket ERROR:", err);
+      ws.onclose = (ev) => console.warn("WebSocket cerrado:", ev);
+
+      ws.onmessage = function (e) {
+        document.getElementById("txtConversation").value += e.data + "\n";
+        console.log(e);
+      };
+
+      function conectar() {
+        ws.onopen = function (e) {
+          document.getElementById("txtConversation").value =
+            "Conectando al servidor\n";
+          console.log(e);
+
+          ws.send("Usuario: Camila");
+        };
+      }
+
+      function enviar() {
+        ws.send(document.getElementById("txtMessage").value);
+        document.getElementById("txtMessage").value = "";
+        document.getElementById("txtMessage").focus();
+      }
+
+      function cerrar() {
+        ws.onclose = function (e) {
+          console.log(e);
+        };
+      }
+    </script>
+  </head>
+  <body onLoad="conectar()">
+    <table>
+      <tr>
+        <td><input type="text" id="txtMessage" required /></td>
+        <td>
+          <input type="button" id="btnSend" value="Enviar" onClick="enviar()" />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <textarea id="txtConversation" cols="80" rows="15"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input
+            type="button"
+            id="btnClose"
+            value="Cerrar"
+            onClick="cerrar()"
+          />
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

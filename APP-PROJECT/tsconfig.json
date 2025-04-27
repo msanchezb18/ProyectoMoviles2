@@ -1,0 +1,10 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    // Desactiva el chequeo de archivos .js
+    "allowJs": true,
+    "checkJs": false
+  },
+  // Excluye completamente las dependencias de node_modules
+  "exclude": ["node_modules", "android", "ios"]
+}
