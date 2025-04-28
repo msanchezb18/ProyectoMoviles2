@@ -18,11 +18,6 @@ const App = () => {
         initialRouteName="Index" // Pantalla inicial al abrir la app
       >
         <Stack.Screen
-          name="GameSetup"
-          component={GameSetup}
-          options={{ title: "Configurar Juego" }}
-        />
-        <Stack.Screen
           name="Index"
           component={Index}
           options={{ title: "Pantalla Principal" }}
